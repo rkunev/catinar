@@ -3,6 +3,15 @@
   "version": "0.0.1",
   "description": "Android Nougat Easter Egg Clone",
   "author": "Rosen Kanev <rkunev@gmail.com>",
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "nuxt": "^1.1.1"
+  },
   "engines": {
     "node": ">=8.9.x"
   }
