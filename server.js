@@ -4,16 +4,21 @@ const config = require('./nuxt.config.js');
 
 const nuxt = new Nuxt(config);
 
-// Enable live build & reloading on dev
-if (nuxt.options.dev) {
-    new Builder(nuxt).build();
-}
-
 const host = process.env.HOST || 'localhost';
 const port = process.env.PORT || 3000;
 
 const server = micro((req, res) => nuxt.render(req, res));
 
+const printURL = () => console.log(`Server listening on http://${host}:${port}`);
+
 // Listen the server
 server.listen(port, host);
-console.log(`Server listening on http://${host}:${port}`);
+
+// Enable live build & reloading on dev
+if (nuxt.options.dev) {
+    new Builder(nuxt)
+        .build()
+        .then(printURL);
+} else {
+    printURL();
+}
