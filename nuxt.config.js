@@ -1,10 +1,10 @@
 module.exports = {
     head: {
-        title: 'nuxt-boilerplate',
+        title: 'Catinar',
         meta: [
             { charset: 'utf-8' },
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-            { hid: 'description', name: 'description', content: 'Nuxt.js project' },
+            { hid: 'description', name: 'description', content: 'Android Nougat 7 Easter Egg Clone' },
         ],
         link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     },
