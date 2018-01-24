@@ -1,17 +1,16 @@
 <template>
-    <div class="cats-listing">
-        <template v-for="n in 10">
-            <colorful-cat v-bind="parts" class="cats-listing__kitty" :key="n" :editable="n % 2 === 0" />
-        </template>
-    </div>
+    <main class="colorful-cat-page">
+        <colorful-cat v-bind="parts" class="cat" />
+        <div>{{ $route.params.id }}</div>
+    </main>
 </template>
 
 <script>
     import ColorfulCat from '@/components/ColorfulCat';
 
     export default {
+        name: 'colorful-cat-page',
         components: { ColorfulCat },
-        props: ['cats'],
         data() {
             return {
                 parts: {
@@ -49,13 +48,11 @@
 </script>
 
 <style lang="scss">
-    .cats-listing {
-        display: flex;
-        flex-wrap: wrap;
-    }
+    .colorful-cat-page {
+        text-align: center;
 
-    .cats-listing__kitty.colorful-cat {
-        padding: 15px;
-        width: 33.3333%;
+        .cat {
+            max-width: 400px;
+        }
     }
 </style>

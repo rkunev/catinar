@@ -1,5 +1,5 @@
 <template>
-    <svg @click="logPart" class="colorful-cat" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11706 11706">
+    <svg @click="logPart" class="colorful-cat" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11706 11706" :aria-label="name || 'Cat'">
         <circle :class="bg" data-part="bg" cx="5853" cy="5853" r="5853"/>
         <path :class="ear1left" data-part="ear1left" d="M7762 2854l-181-1583-1004 1003z"/>
         <path :class="ear1right" data-part="ear1right" d="M3943 2854l182-1583 1003 1003z"/>
@@ -37,7 +37,7 @@
 
     export default {
         name: 'colorful-cat',
-        props: ['editable', 'bg', 'ear1left', 'ear1right', 'ear2right', 'ear2left', 'head', 'hair', 'eyeright', 'eyeleft', 'mouth', 'lips', 'legright', 'pawright', 'legbackright', 'pawbackright', 'legbackleft', 'pawbackleft', 'legleft', 'pawleft', 'tail', 'legrightshadow', 'tailshadow', 'body', 'chest', 'collar', 'tailtop', 'nose'],
+        props: ['name', 'editable', 'bg', 'ear1left', 'ear1right', 'ear2right', 'ear2left', 'head', 'hair', 'eyeright', 'eyeleft', 'mouth', 'lips', 'legright', 'pawright', 'legbackright', 'pawbackright', 'legbackleft', 'pawbackleft', 'legleft', 'pawleft', 'tail', 'legrightshadow', 'tailshadow', 'body', 'chest', 'collar', 'tailtop', 'nose'],
         methods: {
             logPart(event) {
                 if (!this.editable) {

@@ -7,7 +7,10 @@ module.exports = {
             { hid: 'description', name: 'description', content: 'Android Nougat 7 Easter Egg Clone' },
         ],
         link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+        htmlAttrs: {
+            lang: 'en-US',
+        }
     },
 
-    loading: { color: '#3B8070' },
+    loading: { color: '#16274a' },
 };

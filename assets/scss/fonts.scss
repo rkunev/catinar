@@ -1,0 +1,7 @@
+@import '_typography';
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: $_regular;
+  src: url('../fonts/roboto-regular.woff2') format('woff2');
+}
