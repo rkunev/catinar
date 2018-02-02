@@ -70,20 +70,4 @@
             max-width: 400px;
         }
     }
-
-    .create-cat-form {
-        display: flex;
-        align-items: center;
-        margin-top: 12px;
-        margin-bottom: 12px;
-    }
-
-    .create-cat-form__cancel {
-        margin-left: auto;
-        margin-right: 12px;
-    }
-
-    .create-cat-form__save {
-        margin-right: 0;
-    }
 </style>

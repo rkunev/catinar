@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "micro": "^9.1.0",
+    "node-waves": "^0.7.6",
     "nuxt": "^1.1.1"
   },
   "devDependencies": {

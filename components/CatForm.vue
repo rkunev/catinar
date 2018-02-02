@@ -1,18 +1,19 @@
 <template>
     <form class="create-cat-form" @submit.prevent="logForm">
-        <button type="button" class="create-cat-form__randomize">Randomize</button>
-
+        <md-button accent class="create-cat-form__randomize">Randomize</md-button>
         <input v-model="name" title="Cat Name" type="text" placeholder="Tom" class="create-cat-form__name">
 
-        <nuxt-link to="/" class="create-cat-form__cancel">Cancel</nuxt-link>
-
-        <button type="submit" class="create-cat-form__save">Save</button>
+        <md-button raised type="submit" to="/" class="create-cat-form__cancel">Cancel</md-button>
+        <md-button primary type="submit" class="create-cat-form__save">Save</md-button>
     </form>
 </template>
 
 <script>
+    import MdButton from '@/components/MdButton';
+
     export default {
         name: 'create-cat-form',
+        components: { MdButton },
         props: ['catName'],
         data() {
             return { name: this.catName || '' }

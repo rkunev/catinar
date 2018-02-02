@@ -13,4 +13,8 @@ module.exports = {
     },
 
     loading: { color: '#16274a' },
+
+    plugins: [
+        { src: '~/plugins/waves.js', ssr: false },
+    ],
 };
