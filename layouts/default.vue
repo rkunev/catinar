@@ -5,6 +5,8 @@
         <div class="main-content-wrapper">
             <div class="main-content">
                 <nuxt/>
+
+                <create-fab />
             </div>
         </div>
     </div>
@@ -12,10 +14,11 @@
 
 <script>
     import AppBar from '@/components/AppBar';
+    import CreateFab from '@/components/CreateFab';
 
     export default {
         name: 'default-layout',
-        components: { AppBar },
+        components: { AppBar, CreateFab },
     }
 </script>
 
@@ -56,5 +59,49 @@
             padding: 16px;
             border-radius: 2px;
         }
+    }
+
+    $page-enter-animation-duration: .4s;
+    $page-leave-animation-duration: .2s;
+
+    .page-enter-active ~ .fab {
+        animation: fab-in cubic-bezier(.4, 0, .2, 1) $page-enter-animation-duration;
+    }
+
+    .home-page.page-leave-active ~ .fab {
+      animation: fab-out cubic-bezier(.4, 0, .2, 1) $page-leave-animation-duration;
+    }
+
+    main:not(.home-page) ~ .fab {
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    .page-enter-active {
+      animation: $page-enter-animation-duration cubic-bezier(.4, 0, .2, 1) page-in;
+    }
+
+    .page-leave-active {
+      animation: $page-leave-animation-duration cubic-bezier(.4, 0, .2, 1) page-out;
+    }
+
+    @keyframes page-in {
+      0% { transform: translateY(30px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes page-out {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(30px); opacity: 0; }
+    }
+
+    @keyframes fab-in {
+      0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+      100% { transform: scale(1) rotate(0); opacity: 1; }
+    }
+
+    @keyframes fab-out {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(0); opacity: 0; }
     }
 </style>

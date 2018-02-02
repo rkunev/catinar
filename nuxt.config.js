@@ -13,6 +13,7 @@ module.exports = {
     },
 
     loading: { color: '#16274a' },
+    transition: 'page',
 
     plugins: [
         { src: '~/plugins/waves.js', ssr: false },
