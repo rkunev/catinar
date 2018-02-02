@@ -10,10 +10,16 @@
     export default {
         name: 'md-button',
         props: {
-            to: { type: String, default() { return this.to ? this.to : null } },
+            to: {
+                type: String,
+                default() { return this.to || null }
+            },
             target: String,
             rel: String,
-            type: String,
+            type: {
+                type: String,
+                default() { return this.to ? null : (this.type || 'button'); }
+            },
             exact: Boolean,
             disabled: Boolean,
             primary: Boolean,
@@ -42,7 +48,7 @@
         },
         destroyed() {
             Waves.calm(this.$el.firstChild);
-        }
+        },
     };
 </script>
 

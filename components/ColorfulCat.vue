@@ -31,7 +31,7 @@
 </template>
 
 <script>
-    const colors = ['md-red', 'md-pink', 'md-purple', 'md-deep-purple', 'md-indigo', 'md-blue', 'md-light-blue', 'md-cyan', 'md-teal', 'md-green', 'md-light-green', 'md-lime', 'md-yellow', 'md-amber', 'md-orange', 'md-deep-orange', 'md-brown', 'md-grey', 'md-blue-grey'];
+    const colors = ['md-white', 'md-black', 'md-red', 'md-pink', 'md-purple', 'md-deep-purple', 'md-indigo', 'md-blue', 'md-light-blue', 'md-cyan', 'md-teal', 'md-green', 'md-light-green', 'md-lime', 'md-yellow', 'md-amber', 'md-orange', 'md-deep-orange', 'md-brown', 'md-grey', 'md-blue-grey'];
     const faceAwareParts = ['lips', 'eyeleft', 'eyeright', 'nose', 'head'];
     const bgAwareParts = ['head', 'ear1left', 'ear1right', 'ear2left', 'ear2right', 'tail', 'tailtop', 'legright', 'pawright', 'legbackright', 'pawbackright', 'legbackleft', 'pawbackleft', 'legleft', 'pawleft', 'body', 'chest', 'bg'];
 
@@ -115,6 +115,8 @@
         [data-part=tailshadow]     { @extend %shadow-overlay  }
         [data-part=tailtop]        { @extend %white-fill      }
 
+        .md-white       { fill: #fff }
+        .md-black       { fill: #222 }
         .md-red         { fill: #F44336 }
         .md-pink        { fill: #E91E63 }
         .md-purple      { fill: #6C27B0 }

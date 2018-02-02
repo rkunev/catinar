@@ -2,9 +2,7 @@
     <main class="create-cat-page">
         <colorful-cat class="cat" :editable="true" />
 
-        <hr>
-
-        <cat-form @submit="logForm"></cat-form>
+        <cat-form class="create-cat-form--with-divider" @submit="logForm"></cat-form>
     </main>
 </template>
 

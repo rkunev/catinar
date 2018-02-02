@@ -92,7 +92,7 @@
     transition-timing-function: $transition-timing-function-deceleration;
 
     &:hover {
-        background: #79b03b;
+        background: $accent-color-dark;
     }
 
     &:focus {

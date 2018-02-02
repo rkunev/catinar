@@ -2,15 +2,17 @@
     <main class="colorful-cat-page">
         <colorful-cat v-bind="parts" class="cat" />
         <div>{{ $route.params.id }}</div>
+        <cat-form class="create-cat-form--with-divider" @submit="logForm"></cat-form>
     </main>
 </template>
 
 <script>
     import ColorfulCat from '@/components/ColorfulCat';
+    import CatForm from '@/components/CatForm';
 
     export default {
         name: 'colorful-cat-page',
-        components: { ColorfulCat },
+        components: { ColorfulCat, CatForm },
         data() {
             return {
                 parts: {
@@ -44,6 +46,11 @@
                 },
             };
         },
+        methods: {
+            logForm() {
+                console.log('implement editing cat');
+            }
+        }
     };
 </script>
 
