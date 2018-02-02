@@ -40,7 +40,7 @@
         props: ['name', 'editable', 'bg', 'ear1left', 'ear1right', 'ear2right', 'ear2left', 'head', 'hair', 'eyeright', 'eyeleft', 'mouth', 'lips', 'legright', 'pawright', 'legbackright', 'pawbackright', 'legbackleft', 'pawbackleft', 'legleft', 'pawleft', 'tail', 'legrightshadow', 'tailshadow', 'body', 'chest', 'collar', 'tailtop', 'nose'],
         methods: {
             logPart(event) {
-                if (!this.editable) {
+                if (!this.editable || this.$el === event.target) {
                     return;
                 }
 
