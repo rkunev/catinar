@@ -32,6 +32,7 @@
 
 <script>
     const colors = ['md-white', 'md-black', 'md-red', 'md-pink', 'md-purple', 'md-deep-purple', 'md-indigo', 'md-blue', 'md-light-blue', 'md-cyan', 'md-teal', 'md-green', 'md-light-green', 'md-lime', 'md-yellow', 'md-amber', 'md-orange', 'md-deep-orange', 'md-brown', 'md-grey', 'md-blue-grey'];
+    const coloredParts = ['bg', 'ear1left', 'ear1right', 'ear2right', 'ear2left', 'head', 'hair', 'eyeright', 'eyeleft', 'mouth', 'lips', 'legright', 'pawright', 'legbackright', 'pawbackright', 'legbackleft', 'pawbackleft', 'legleft', 'pawleft', 'tail', 'legrightshadow', 'tailshadow', 'body', 'chest', 'collar', 'tailtop', 'nose'];
     const faceAwareParts = ['lips', 'eyeleft', 'eyeright', 'nose', 'head'];
     const bgAwareParts = ['head', 'ear1left', 'ear1right', 'ear2left', 'ear2right', 'tail', 'tailtop', 'legright', 'pawright', 'legbackright', 'pawbackright', 'legbackleft', 'pawbackleft', 'legleft', 'pawleft', 'body', 'chest', 'bg'];
 
