@@ -1,7 +1,7 @@
 <template>
     <main class="create-cat-page">
         <colorful-cat class="cat" :editable="true" />
-        <h2 class="cat-title">Lorem ipsum dolor sit amet.</h2>
+        <h2 class="cat-name">Cat #1</h2>
         <cat-form class="cat-form--with-divider" @submit="logForm"></cat-form>
     </main>
 </template>
@@ -68,7 +68,7 @@
             max-width: 400px;
         }
 
-        .cat-title {
+        .cat-name {
             margin: 16px 0;
         }
     }
