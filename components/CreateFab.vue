@@ -7,6 +7,12 @@
     </nuxt-link>
 </template>
 
+<script>
+    export default {
+        name: 'create-fab',
+    };
+</script>
+
 <style lang="scss">
     @import "~@/assets/scss/_media-queries";
 

@@ -1,18 +1,21 @@
 <template>
     <main class="create-cat-page">
-        <colorful-cat class="cat" :editable="true" />
+        <cat-svg class="cat" :editable="true" v-bind="parts" @update="updatePart" />
         <h2 class="cat-name">Cat #1</h2>
-        <cat-form class="cat-form--with-divider" @submit="logForm"></cat-form>
+        <cat-form class="cat-form--with-divider" @submit="logForm" :randomize="randomizeCat"></cat-form>
     </main>
 </template>
 
 <script>
-    import ColorfulCat from '@/components/ColorfulCat';
+    import CatSvg from '@/components/CatSvg';
     import CatForm from '@/components/CatForm';
+
+    import { generateRandomCat, getPermittedColorsForPart } from '@/services/catRandomizer';
+    import { getRandomElFromArray } from '@/services/utils';
 
     export default {
         name: 'create-cat-page',
-        components: { ColorfulCat, CatForm },
+        components: { CatSvg, CatForm },
         head() {
             return {
                 title: 'Catinar - New Cat',
@@ -23,39 +26,40 @@
                 catName: '',
                 parts: {
                     bg: '',
-                    ear1left: '',
-                    ear1right: '',
-                    ear2right: '',
-                    ear2left: '',
-                    head: '',
-                    hair: '',
-                    eyeright: '',
-                    eyeleft: '',
-                    mouth: '',
-                    lips: '',
-                    legright: '',
-                    pawright: '',
-                    legbackright: '',
-                    pawbackright: '',
-                    legbackleft: '',
-                    pawbackleft: '',
-                    legleft: '',
-                    pawleft: '',
-                    tail: '',
-                    legrightshadow: '',
-                    tailshadow: '',
-                    body: '',
                     chest: '',
                     collar: '',
+                    eyes: '',
+                    hair: '',
+                    main: '',
+                    mouth: '',
+                    noseAndLips: '',
+                    pawright: '',
+                    pawbackright: '',
+                    pawbackleft: '',
+                    pawleft: '',
                     tailtop: '',
-                    nose: '',
-                },
+                }
             };
         },
         methods: {
             logForm(name) {
                 console.log('form', name);
-            }
+            },
+            randomizeCat() {
+                this.parts = generateRandomCat();
+            },
+            updatePart(part) {
+                const availableColors = getPermittedColorsForPart({
+                    color: part.color,
+                    part: part.type,
+                    allParts: this.parts
+                });
+                const newColor = getRandomElFromArray(availableColors);
+
+                if (part.type in this.parts) {
+                    this.parts[part.type] = newColor;
+                }
+            },
         },
     };
 </script>

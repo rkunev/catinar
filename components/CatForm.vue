@@ -1,6 +1,6 @@
 <template>
     <form class="cat-form" @submit.prevent="logForm">
-        <md-button @click="logRandom" accent class="cat-form__randomize">Randomize</md-button>
+        <md-button @click="randomize" accent class="cat-form__randomize">Randomize</md-button>
         <md-input v-model="name" label="Cat Name" class="cat-form__name" />
 
         <md-button raised to="/" class="cat-form__cancel">Cancel</md-button>
@@ -15,7 +15,7 @@
     export default {
         name: 'cat-form',
         components: { MdButton, MdInput },
-        props: ['catName'],
+        props: ['catName', 'randomize'],
         data() {
             return { name: this.catName || '' }
         },
@@ -27,9 +27,6 @@
         methods: {
             logForm() {
                 this.$emit('submit', this.name);
-            },
-            logRandom() {
-                this.name = `Cat #${Math.random() * 10000 | 0}`;
             },
         },
     };

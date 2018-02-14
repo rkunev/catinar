@@ -1,17 +1,17 @@
 <template>
     <div class="cat-list">
         <nuxt-link class="cat-list__link" :to="'/' + n" v-for="n in 10" :key="n">
-            <colorful-cat class="cat-list__item" v-bind="parts" />
+            <cat-svg class="cat-list__item" v-bind="parts" />
         </nuxt-link>
     </div>
 </template>
 
 <script>
-    import ColorfulCat from '@/components/ColorfulCat';
+    import CatSvg from '@/components/CatSvg';
 
     export default {
         name: 'cat-list',
-        components: { ColorfulCat },
+        components: { CatSvg },
         props: ['cats'],
         data() {
             return {

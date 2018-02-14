@@ -1,18 +1,18 @@
 <template>
-    <main class="colorful-cat-page">
-        <colorful-cat v-bind="parts" class="cat" />
+    <main class="cat-details-page">
+        <cat-svg v-bind="parts" class="cat" />
         <div>{{ $route.params.id }}</div>
         <cat-form class="create-cat-form--with-divider" @submit="logForm"></cat-form>
     </main>
 </template>
 
 <script>
-    import ColorfulCat from '@/components/ColorfulCat';
+    import CatSvg from '@/components/CatSvg';
     import CatForm from '@/components/CatForm';
 
     export default {
-        name: 'colorful-cat-page',
-        components: { ColorfulCat, CatForm },
+        name: 'cat-details-page',
+        components: { CatSvg, CatForm },
         data() {
             return {
                 parts: {
@@ -55,7 +55,7 @@
 </script>
 
 <style lang="scss">
-    .colorful-cat-page {
+    .cat-details-page {
         text-align: center;
 
         .cat {
