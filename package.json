@@ -9,6 +9,7 @@
     "start": "cross-env NODE_ENV=production node server.js"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "micro": "^9.1.0",
     "node-waves": "^0.7.6",
     "nuxt": "^1.1.1"
