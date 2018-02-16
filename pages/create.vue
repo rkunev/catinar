@@ -1,21 +1,22 @@
 <template>
     <main class="create-cat-page">
         <cat-svg class="cat" :editable="true" v-bind="parts" @update="updatePart" />
-        <h2 class="cat-name">Cat #1</h2>
-        <cat-form class="cat-form--with-divider" @submit="logForm" :randomize="randomizeCat"></cat-form>
+        <cat-form class="cat-form--with-divider" @submit="onCreateCatFormSubmit" :randomize="randomizeCat" />
     </main>
 </template>
 
 <script>
     import CatSvg from '@/components/CatSvg';
     import CatForm from '@/components/CatForm';
+    import CatName from '@/components/CatName';
 
     import { generateRandomCat, getPermittedColorsForPart } from '@/services/catRandomizer';
+    import { createCat } from '@/services/catApi';
     import { getRandomElFromArray } from '@/services/utils';
 
     export default {
         name: 'create-cat-page',
-        components: { CatSvg, CatForm },
+        components: { CatSvg, CatForm, CatName },
         head() {
             return {
                 title: 'Catinar - New Cat',
@@ -23,7 +24,7 @@
         },
         data() {
             return {
-                catName: '',
+                name: '',
                 parts: {
                     bg: '',
                     chest: '',
@@ -42,8 +43,16 @@
             };
         },
         methods: {
-            logForm(name) {
-                console.log('form', name);
+            async onCreateCatFormSubmit(name) {
+                console.log('disable saving while creating the cat...');
+
+                const res = await createCat({
+                    name,
+                    parts: this.parts,
+                });
+
+                console.log('show a success toast and redirect to home page', res);
+                this.$router.push('/');
             },
             randomizeCat() {
                 this.parts = generateRandomCat();
@@ -70,10 +79,6 @@
 
         .cat {
             max-width: 400px;
-        }
-
-        .cat-name {
-            margin: 16px 0;
         }
     }
 </style>

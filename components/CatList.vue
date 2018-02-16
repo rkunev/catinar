@@ -1,51 +1,50 @@
 <template>
     <div class="cat-list">
-        <nuxt-link class="cat-list__link" :to="'/' + n" v-for="n in 10" :key="n">
-            <cat-svg class="cat-list__item" v-bind="parts" />
-        </nuxt-link>
+        <div class="cat-list__item" v-for="(cat, key, index) in cats" :key="key">
+            <nuxt-link class="cat-list__link" :to="'/' + key">
+                <cat-svg v-bind="cat.parts" />
+            </nuxt-link>
+
+            <cat-name>
+                <div>#{{ index + 1 }}</div>
+
+                <truncate-single-line-text>
+                    <nuxt-link class="cat-list__link" :to="'/' + key">{{ cat.name }}</nuxt-link>
+                </truncate-single-line-text>
+            </cat-name>
+        </div>
     </div>
 </template>
 
 <script>
     import CatSvg from '@/components/CatSvg';
+    import CatName from '@/components/CatName';
+    import TruncateSingleLineText from '@/components/TruncateSingleLineText';
 
     export default {
         name: 'cat-list',
-        components: { CatSvg },
+        components: { CatSvg, CatName, TruncateSingleLineText },
         props: ['cats'],
-        data() {
-            return {
-                parts: {
-                    bg: '',
-                    chest: '',
-                    collar: '',
-                    eyes: '',
-                    hair: '',
-                    main: '',
-                    mouth: '',
-                    noseAndLips: '',
-                    pawright: '',
-                    pawbackright: '',
-                    pawbackleft: '',
-                    pawleft: '',
-                    tailtop: '',
-                },
-            };
-        },
     };
 </script>
 
 <style lang="scss">
     .cat-list {
-        display: flex;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-gap: 32px;
+        text-align: center;
     }
 
     .cat-list__link {
-        width: 33.3333%;
-    }
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+        color: #111;
+        text-decoration: none;
 
-    .cat-list__item {
-        padding: 15px;
+        &:hover {
+            text-decoration: underline;
+        }
     }
 </style>

@@ -2,7 +2,6 @@
     <form class="cat-form" @submit.prevent="logForm">
         <md-button @click="randomize" accent class="cat-form__randomize">Randomize</md-button>
         <md-input v-model="name" label="Cat Name" class="cat-form__name" />
-
         <md-button raised to="/" class="cat-form__cancel">Cancel</md-button>
         <md-button primary type="submit" class="cat-form__save">Save</md-button>
     </form>

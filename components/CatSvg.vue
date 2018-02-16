@@ -57,6 +57,7 @@
 
     .cat-svg {
         width: 100%;
+        vertical-align: bottom;
 
         %white-fill { fill: #fff }
         %light-blue-fill { fill: #01a8f5 }

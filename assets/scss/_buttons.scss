@@ -41,7 +41,7 @@
     background: rgba(153, 153, 153, .2);
     transition: box-shadow $transition-duration-default $transition-timing-function-deceleration;
 
-    &:hover {
+    &:hover:not(:disabled) {
         @include shadow(3);
     }
 
@@ -67,6 +67,7 @@
     transition-timing-function: $transition-timing-function-deceleration;
 
     &:hover:not(:disabled) {
+        @include shadow(3);
         background: $primary-color-dark;
     }
 
@@ -91,7 +92,8 @@
     transition-duration: $transition-duration-default;
     transition-timing-function: $transition-timing-function-deceleration;
 
-    &:hover {
+    &:hover:not(:disabled) {
+        @include shadow(3);
         background: $accent-color-dark;
     }
 

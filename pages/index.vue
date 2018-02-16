@@ -6,6 +6,7 @@
 
 <script>
     import CatList from '@/components/CatList';
+    import { getAllCats } from '@/services/catApi';
 
     export default {
         components: { CatList },
@@ -16,15 +17,13 @@
         },
         data() {
             return {
-                cats: [],
+                cats: {},
             };
+        },
+        async asyncData() {
+            const cats = await getAllCats();
+
+            return { cats };
         },
     };
 </script>
-
-<style lang="scss">
-    @import "~@/assets/scss/_media-queries";
-
-    .home-page {
-    }
-</style>
