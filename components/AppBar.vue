@@ -1,24 +1,47 @@
 <template>
     <header class="app-bar">
-        <h1 class="app-bar__title"><nuxt-link to="/">Catinar</nuxt-link></h1>
+        <h1 class="app-bar__title">
+            <nuxt-link to="/">Catinar</nuxt-link>
+        </h1>
 
-        <button class="app-bar__action" @click="logout">Sign out</button>
+        <div class="app-bar__actions">
+            <md-menu v-if="isSortMenuVisible" :items="menuItems" @action="onAction">
+                <svg slot="icon" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                </svg>
+            </md-menu>
+        </div>
     </header>
 </template>
 
 <script>
-    // import { signOut } from '@/services/authService';
+    import MdMenu from '@/components/MdMenu';
+    import MdButton from '@/components/MdButton';
 
     export default {
         name: 'app-bar',
+        components: { MdMenu, MdButton },
+        data() {
+            return {
+                isSortMenuVisible: true,
+                menuItems: [
+                    { id: 0, disabled: false, text: 'Refresh' },
+                    { id: 1, disabled: true, text: 'Settings' },
+                    { id: 2, disabled: false, text: 'About' }, // (show a modal with the version number, built with and author)
+                    { id: 3, disabled: false, text: 'Send Feedback' }, // (link to github.com/rkunev/catinar/issues)
+                ],
+            };
+        },
+        fetch() {},
         methods: {
-            async logout() {
-                await signOut();
-
-                this.$router.replace('/auth');
+            onAction({ id }) {
+                if (id === 0) {
+                    this.$store.dispatch('refreshScreen', this.$route);
+                }
             },
-        }
-    }
+        },
+    };
 </script>
 
 <style lang="scss">
@@ -52,17 +75,22 @@
         }
     }
 
+    .app-bar__actions {
+        margin: 0 16px 0 auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 16px;
+    }
+
     .app-bar__action {
         @include subheading;
         background: transparent;
         border: none;
-        border-radius: 2px;
         color: inherit;
         outline: none;
         cursor: pointer;
         text-align: center;
         padding: 0;
-        margin: 0 16px 0 auto;
         display: inline-block;
         text-decoration: none;
         vertical-align: middle;

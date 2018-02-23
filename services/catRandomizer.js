@@ -87,3 +87,19 @@ export const getPermittedColorsForPart = ({ part, color, allParts }) => {
 
     return without(colors, restrictedColors);
 };
+
+export const getDefaultCat = () => ({
+    bg: 'init',
+    chest: 'init',
+    collar: 'init',
+    eyes: 'init',
+    hair: 'init',
+    main: 'init',
+    mouth: 'init',
+    noseAndLips: 'init',
+    pawright: 'init',
+    pawbackright: 'init',
+    pawbackleft: 'init',
+    pawleft: 'init',
+    tailtop: 'init',
+});

@@ -3,8 +3,8 @@
         <circle :class="bg" data-part="bg" cx="5853" cy="5853" r="5853"/>
         <path :class="main" data-part="main" d="M7762 2854l-181-1583-1004 1003z"/>
         <path :class="main" data-part="main" d="M3943 2854l182-1583 1003 1003z"/>
-        <path data-part="ear2right" d="M3990 2443l135-1172 481 788c-221 103-428 232-616 384z"/>
-        <path data-part="ear2left" d="M7715 2443l-134-1172-482 788c222 103 429 232 616 384z"/>
+        <path class="init" data-part="ear2right" d="M3990 2443l135-1172 481 788c-221 103-428 232-616 384z"/>
+        <path class="init" data-part="ear2left" d="M7715 2443l-134-1172-482 788c222 103 429 232 616 384z"/>
         <circle :class="main" data-part="main" cx="5853" cy="4736" r="2948"/>
         <path :class="hair" data-part="hair" d="M5853 1788c187 0 371 18 549 51-76 272-325 470-621 470-285 0-527-185-612-441 219-52 448-80 684-80z"/>
         <ellipse :class="eyes" data-part="eyes" cx="4838" cy="3270" rx="300" ry="218"/>
@@ -18,8 +18,8 @@
         <rect :class="main" data-part="main" x="6466" y="7480" width="968" height="2634" rx="484" ry="484"/>
         <path :class="pawleft" data-part="pawleft" d="M6466 9578v52c0 266 218 484 484 484s484-218 484-484v-52h-968z"/>
         <path :class="main" data-part="main" d="M7442 8127c0 266 217 484 484 484h1454c563 0 1041-406 1041-982V6140c0-266-218-484-484-484s-484 218-484 484v1385l-1 3v6l-1 3v3l-1 3v3l-1 3-1 3-1 3-1 3-1 3-1 3-1 3-1 2-1 3-2 3-1 2-2 3-1 3-2 2-1 3-2 2-2 3-2 2-2 2-2 3-2 2-2 2-2 2-2 2-2 2-2 2-2 2h-1l-2 2-2 2-3 2-2 1-3 2-2 2-3 1-2 2-3 1-3 1-2 2-3 1-3 1-3 1-3 1-3 1-3 1-2 1h-3l-3 1-4 1h-3l-3 1h-6l-3 1H7926c-267 0-484 217-484 484z"/>
-        <path data-part="legrightshadow" d="M4271 8611h968v483h-968v-15z"/>
-        <path data-part="tailshadow" d="M8801 7643h218v968h-218z"/>
+        <path class="init" data-part="legrightshadow" d="M4271 8611h968v483h-968v-15z"/>
+        <path class="init" data-part="tailshadow" d="M8801 7643h218v968h-218z"/>
         <path :class="main" data-part="main" d="M2905 4748h5896v3862H2905z"/>
         <path :class="chest" data-part="chest" d="M6466 8611H3873V7282c0-713 583-1296 1297-1296 713 0 1296 583 1296 1296v1329z"/>
         <path :class="collar" data-part="collar" d="M2905 4748h5896v278H2905z"/>
@@ -34,7 +34,7 @@
     export default {
         name: 'cat-svg',
         props: [
-            'name', 'editable', 'bg', 'chest', 'collar', 'eyes', 'hair', 'main', 'mouth',
+            'update', 'name', 'editable', 'bg', 'chest', 'collar', 'eyes', 'hair', 'main', 'mouth',
             'noseAndLips', 'pawright', 'pawbackright', 'pawbackleft', 'pawleft', 'tailtop',
         ],
         methods: {
@@ -43,7 +43,7 @@
                     return;
                 }
 
-                this.$emit('update', {
+                this.update({
                     color: target.getAttribute('class'),
                     type: target.getAttribute('data-part'),
                 });
@@ -65,23 +65,23 @@
         %skin-tone-fill { fill: #ef9a9a }
         %shadow-overlay { opacity: .2 }
 
-        [data-part=bg]             { fill: #ffd500            }
-        [data-part=main]           { @extend %light-blue-fill }
-        [data-part=chest]          { @extend %white-fill      }
-        [data-part=collar]         { @extend %dark-blue-fill  }
-        [data-part=ear2left]       { @extend %skin-tone-fill  }
-        [data-part=ear2right]      { @extend %skin-tone-fill  }
-        [data-part=eyes]           { @extend %dark-blue-fill  }
-        [data-part=hair]           { @extend %dark-blue-fill  }
-        [data-part=legrightshadow] { @extend %shadow-overlay  }
-        [data-part=mouth]          { @extend %white-fill      }
-        [data-part=lipsAndNose]    { @extend %dark-blue-fill  }
-        [data-part=pawbackleft]    { @extend %white-fill      }
-        [data-part=pawbackright]   { @extend %white-fill      }
-        [data-part=pawleft]        { @extend %white-fill      }
-        [data-part=pawright]       { @extend %white-fill      }
-        [data-part=tailshadow]     { @extend %shadow-overlay  }
-        [data-part=tailtop]        { @extend %white-fill      }
+        .init[data-part=bg]             { fill: #ffd500            }
+        .init[data-part=main]           { @extend %light-blue-fill }
+        .init[data-part=chest]          { @extend %white-fill      }
+        .init[data-part=collar]         { @extend %dark-blue-fill  }
+        .init[data-part=ear2left]       { @extend %skin-tone-fill  }
+        .init[data-part=ear2right]      { @extend %skin-tone-fill  }
+        .init[data-part=eyes]           { @extend %dark-blue-fill  }
+        .init[data-part=hair]           { @extend %dark-blue-fill  }
+        .init[data-part=legrightshadow] { @extend %shadow-overlay  }
+        .init[data-part=mouth]          { @extend %white-fill      }
+        .init[data-part=lipsAndNose]    { @extend %dark-blue-fill  }
+        .init[data-part=pawbackleft]    { @extend %white-fill      }
+        .init[data-part=pawbackright]   { @extend %white-fill      }
+        .init[data-part=pawleft]        { @extend %white-fill      }
+        .init[data-part=pawright]       { @extend %white-fill      }
+        .init[data-part=tailshadow]     { @extend %shadow-overlay  }
+        .init[data-part=tailtop]        { @extend %white-fill      }
 
         .md-none        { fill: transparent     }
         .md-white       { fill: $md-white       }

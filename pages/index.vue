@@ -1,15 +1,25 @@
 <template>
     <main class="home-page">
-        <cat-list :cats="cats" />
+        <cat-list :cats="cats" :page-size="pageSize" :current-page="catListPage">
+            <list-pagination v-if="hasPagination"
+                             :on-page-change="changeCurrentPage"
+                             :disabled="isPaginationDisabled"
+                             :total="totalCats"
+                             :page-size="pageSize"
+                             :current-page="catListPage" />
+        </cat-list>
     </main>
 </template>
 
 <script>
     import CatList from '@/components/CatList';
-    import { getAllCats } from '@/services/catApi';
+    import ListPagination from '@/components/ListPagination';
+    import { mapState } from 'vuex';
+
+    const pageSize = 5;
 
     export default {
-        components: { CatList },
+        components: { CatList, ListPagination },
         head() {
             return {
                 title: 'Catinar',
@@ -17,13 +27,37 @@
         },
         data() {
             return {
-                cats: {},
+                pageSize,
+                isPaginationDisabled: false,
             };
         },
-        async asyncData() {
-            const cats = await getAllCats();
+        fetch({ store }) {
+            return Promise.all([
+                store.dispatch('updateCats'),
+                store.dispatch('updateCatsTotal'),
+            ]);
+        },
+        computed: {
+            ...mapState(['cats', 'totalCats', 'catListPage']),
+            hasPagination() {
+                return this.cats.length < this.totalCats;
+            },
+        },
+        methods: {
+            async changeCurrentPage(page) {
+                let params = {
+                    startAt: page > 0 ? this.cats[this.cats.length - 1].id : null,
+                    endAt: page < 0 ? this.cats[0].id : null,
+                };
 
-            return { cats };
+                this.isPaginationDisabled = true;
+
+                await this.$store.dispatch('updateCats', params);
+
+                this.$store.dispatch('updateCatListPage', this.catListPage + page);
+
+                this.isPaginationDisabled = false;
+            },
         },
     };
 </script>

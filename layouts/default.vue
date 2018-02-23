@@ -4,7 +4,7 @@
 
         <div class="main-content-wrapper">
             <div class="main-content">
-                <nuxt/>
+                <nuxt />
 
                 <create-fab />
             </div>

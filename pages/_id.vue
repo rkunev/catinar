@@ -1,66 +1,64 @@
 <template>
     <main class="cat-details-page">
-        <cat-svg v-bind="parts" class="cat" />
+        <cat-svg v-bind="catTemplate" class="cat" />
         <cat-name>{{ name }}</cat-name>
-        <cat-form class="cat-form--with-divider" :cat-name="name" @submit="onUpdateCatFormSubmit" :randomize="randomizeCat"></cat-form>
+        <cat-form class="cat-form--with-divider"
+                  :cat-name="name"
+                  :submit="onUpdateCatFormSubmit"
+                  :randomize="randomizeCat">
+            <md-input v-model="name" label="Cat Name" />
+        </cat-form>
     </main>
 </template>
 
 <script>
+    import { mapState } from 'vuex';
+
     import CatSvg from '@/components/CatSvg';
     import CatForm from '@/components/CatForm';
     import CatName from '@/components/CatName';
+    import MdInput from '@/components/MdInput';
 
-    import { getCat, updateCat } from '@/services/catApi';
-
-    const getDefaultData = () => ({
-        name: '',
-        parts: {
-            bg: '',
-            chest: '',
-            collar: '',
-            eyes: '',
-            hair: '',
-            main: '',
-            mouth: '',
-            noseAndLips: '',
-            pawright: '',
-            pawbackright: '',
-            pawbackleft: '',
-            pawleft: '',
-            tailtop: '',
-        },
-    })
+    import { updateCat } from '@/services/catApi';
 
     export default {
         name: 'cat-details-page',
-        components: { CatSvg, CatForm, CatName },
-        data() {
-            return getDefaultData();
+        components: { CatSvg, CatForm, CatName, MdInput },
+        fetch({ store, params }) {
+            return store.dispatch('updateCatById', params.id)
         },
-        async asyncData({ params }) {
-            const res = await getCat(params.id);
-
-            if (res) {
-                return res;
-            } else {
-                return getDefaultData();
+        data() {
+            return {
+                isSavingDisabled: false,
             }
+        },
+        computed: {
+            ...mapState(['catTemplate']),
+            name: {
+                get() {
+                    return this.$store.state.catName;
+                },
+                set(name) {
+                    this.$store.dispatch('updateCatName', name);
+                },
+            },
         },
         methods: {
             randomizeCat() {
-                this.parts = generateRandomCat();
+                this.$store.dispatch('randomizeCatTemplate');
             },
-            async onUpdateCatFormSubmit(name) {
-                console.log('disable saving while updating the cat...');
+            async onUpdateCatFormSubmit() {
+                this.isSavingDisabled = true;
 
-                const res = await updateCat(this.$route.params.id, {
-                    name,
-                    parts: this.parts,
+                await updateCat(this.$route.params.id, {
+                    name: this.name,
+                    parts: this.catTemplate,
                 });
 
-                console.log('show a success toast and redirect to home page', res);
+                this.isSavingDisabled = false;
                 this.$router.push('/');
+
+                console.log('show a success toast and redirect to home page');
             },
         },
     };

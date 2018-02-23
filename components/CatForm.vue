@@ -1,33 +1,19 @@
 <template>
-    <form class="cat-form" @submit.prevent="logForm">
+    <form class="cat-form" @submit.prevent="submit">
         <md-button @click="randomize" accent class="cat-form__randomize">Randomize</md-button>
-        <md-input v-model="name" label="Cat Name" class="cat-form__name" />
+        <slot />
         <md-button raised to="/" class="cat-form__cancel">Cancel</md-button>
-        <md-button primary type="submit" class="cat-form__save">Save</md-button>
+        <md-button :disabled="isSavingDisabled" primary type="submit" class="cat-form__save">Save</md-button>
     </form>
 </template>
 
 <script>
     import MdButton from '@/components/MdButton';
-    import MdInput from '@/components/MdInput';
 
     export default {
         name: 'cat-form',
-        components: { MdButton, MdInput },
-        props: ['catName', 'randomize'],
-        data() {
-            return { name: this.catName || '' }
-        },
-        watch: {
-            catName: function(val) {
-                this.name = val;
-            },
-        },
-        methods: {
-            logForm() {
-                this.$emit('submit', this.name);
-            },
-        },
+        components: { MdButton },
+        props: ['randomize', 'isSavingDisabled', 'submit'],
     };
 </script>
 

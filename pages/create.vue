@@ -1,22 +1,30 @@
 <template>
     <main class="create-cat-page">
-        <cat-svg class="cat" :editable="true" v-bind="parts" @update="updatePart" />
-        <cat-form class="cat-form--with-divider" @submit="onCreateCatFormSubmit" :randomize="randomizeCat" />
+        <cat-svg class="cat" :editable="true" v-bind="catTemplate" :update="updatePart" />
+        <span class="capture-chrome-focus">&nbsp;</span>
+        <cat-form class="cat-form--with-divider"
+                  :is-saving-disabled="isSavingDisabled || !name.length"
+                  :submit="onCreateCatFormSubmit"
+                  :randomize="randomizeCat">
+            <md-input v-model="name" label="Cat Name" />
+        </cat-form>
     </main>
 </template>
 
 <script>
+    import { mapState } from 'vuex';
+
     import CatSvg from '@/components/CatSvg';
     import CatForm from '@/components/CatForm';
     import CatName from '@/components/CatName';
+    import CaptureChromeFocus from '@/components/CaptureChromeFocus';
+    import MdInput from '@/components/MdInput';
 
-    import { generateRandomCat, getPermittedColorsForPart } from '@/services/catRandomizer';
     import { createCat } from '@/services/catApi';
-    import { getRandomElFromArray } from '@/services/utils';
 
     export default {
         name: 'create-cat-page',
-        components: { CatSvg, CatForm, CatName },
+        components: { CatSvg, CatForm, CatName, CaptureChromeFocus, MdInput },
         head() {
             return {
                 title: 'Catinar - New Cat',
@@ -24,50 +32,43 @@
         },
         data() {
             return {
-                name: '',
-                parts: {
-                    bg: '',
-                    chest: '',
-                    collar: '',
-                    eyes: '',
-                    hair: '',
-                    main: '',
-                    mouth: '',
-                    noseAndLips: '',
-                    pawright: '',
-                    pawbackright: '',
-                    pawbackleft: '',
-                    pawleft: '',
-                    tailtop: '',
-                }
+                isSavingDisabled: false,
             };
         },
+        computed: {
+            ...mapState(['catTemplate']),
+            name: {
+                get() {
+                    return this.$store.state.catName;
+                },
+                set(name) {
+                    this.$store.dispatch('updateCatName', name);
+                },
+            },
+        },
+        created() {
+            this.$store.dispatch('resetCatTemplate');
+            this.$store.dispatch('resetCatName');
+        },
         methods: {
-            async onCreateCatFormSubmit(name) {
-                console.log('disable saving while creating the cat...');
+            async onCreateCatFormSubmit() {
+                this.isSavingDisabled = true;
 
-                const res = await createCat({
-                    name,
-                    parts: this.parts,
+                await createCat({
+                    name: this.name,
+                    parts: this.catTemplate,
                 });
 
-                console.log('show a success toast and redirect to home page', res);
+                this.isSavingDisabled = false;
                 this.$router.push('/');
+
+                console.log('show a success toast and redirect to home page');
             },
             randomizeCat() {
-                this.parts = generateRandomCat();
+                this.$store.dispatch('randomizeCatTemplate');
             },
             updatePart(part) {
-                const availableColors = getPermittedColorsForPart({
-                    color: part.color,
-                    part: part.type,
-                    allParts: this.parts
-                });
-                const newColor = getRandomElFromArray(availableColors);
-
-                if (part.type in this.parts) {
-                    this.parts[part.type] = newColor;
-                }
+                this.$store.dispatch('updateCatTemplate', part);
             },
         },
     };
@@ -79,6 +80,11 @@
 
         .cat {
             max-width: 400px;
+        }
+
+        // @hack Double-clicking on the cat focuses the first text input in the form below
+        .capture-chrome-focus {
+            font-size: 0;
         }
     }
 </style>

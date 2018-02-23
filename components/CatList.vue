@@ -1,18 +1,22 @@
 <template>
     <div class="cat-list">
-        <div class="cat-list__item" v-for="(cat, key, index) in cats" :key="key">
-            <nuxt-link class="cat-list__link" :to="'/' + key">
-                <cat-svg v-bind="cat.parts" />
-            </nuxt-link>
+        <div class="cat-grid">
+            <div class="cat-list__item" v-for="(cat, i) in cats" :key="cat.id">
+                <nuxt-link class="cat-list__link" :to="'/' + cat.id">
+                    <cat-svg v-bind="cat.parts" />
+                </nuxt-link>
 
-            <cat-name>
-                <div>#{{ index + 1 }}</div>
+                <cat-name>
+                    <div>#{{ ((currentPage - 1) * pageSize) + i + 1 }}</div>
 
-                <truncate-single-line-text>
-                    <nuxt-link class="cat-list__link" :to="'/' + key">{{ cat.name }}</nuxt-link>
-                </truncate-single-line-text>
-            </cat-name>
+                    <truncate-single-line-text>
+                        <nuxt-link class="cat-list__link" :to="'/' + cat.id">{{ cat.name }}</nuxt-link>
+                    </truncate-single-line-text>
+                </cat-name>
+            </div>
         </div>
+
+        <slot />
     </div>
 </template>
 
@@ -24,12 +28,12 @@
     export default {
         name: 'cat-list',
         components: { CatSvg, CatName, TruncateSingleLineText },
-        props: ['cats'],
+        props: ['cats', 'pageSize', 'currentPage'],
     };
 </script>
 
 <style lang="scss">
-    .cat-list {
+    .cat-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         grid-gap: 32px;
