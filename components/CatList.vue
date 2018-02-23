@@ -33,11 +33,21 @@
 </script>
 
 <style lang="scss">
+    @import '~@/assets/scss/media-queries';
+
     .cat-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         grid-gap: 32px;
         text-align: center;
+        grid-template-columns: repeat(2, 1fr);
+
+        @include tablet-portrait-up {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @include tablet-landscape-up {
+            grid-template-columns: repeat(4, 1fr);
+        }
     }
 
     .cat-list__link {
