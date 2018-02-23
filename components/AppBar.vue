@@ -1,7 +1,7 @@
 <template>
     <header class="app-bar">
         <h1 class="app-bar__title">
-            <nuxt-link to="/">Catinar</nuxt-link>
+            <nuxt-link @click.native="scrollToTop" to="/">{{ appBarTitle }}</nuxt-link>
         </h1>
 
         <div class="app-bar__actions">
@@ -16,6 +16,8 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex';
+
     import MdMenu from '@/components/MdMenu';
     import MdButton from '@/components/MdButton';
 
@@ -33,11 +35,18 @@
                 ],
             };
         },
-        fetch() {},
+        computed: {
+            ...mapState(['appBarTitle']),
+        },
         methods: {
             onAction({ id }) {
                 if (id === 0) {
                     this.$store.dispatch('refreshScreen', this.$route);
+                }
+            },
+            scrollToTop() {
+                if (this.$route.name === 'index') {
+                    window.scrollTo(0, 0);
                 }
             },
         },

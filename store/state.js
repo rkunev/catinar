@@ -6,4 +6,5 @@ export default {
     catListPage: 1,
     catTemplate: getDefaultCat(),
     catName: '',
+    appBarTitle: 'Catinar',
 }

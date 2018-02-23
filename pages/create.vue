@@ -17,14 +17,13 @@
     import CatSvg from '@/components/CatSvg';
     import CatForm from '@/components/CatForm';
     import CatName from '@/components/CatName';
-    import CaptureChromeFocus from '@/components/CaptureChromeFocus';
     import MdInput from '@/components/MdInput';
 
     import { createCat } from '@/services/catApi';
 
     export default {
         name: 'create-cat-page',
-        components: { CatSvg, CatForm, CatName, CaptureChromeFocus, MdInput },
+        components: { CatSvg, CatForm, CatName, MdInput },
         head() {
             return {
                 title: 'Catinar - New Cat',
@@ -34,6 +33,9 @@
             return {
                 isSavingDisabled: false,
             };
+        },
+        fetch({ store }) {
+            store.dispatch('updateAppBarTitle', 'Catinar - New Cat');
         },
         computed: {
             ...mapState(['catTemplate']),

@@ -1,7 +1,7 @@
 <template>
     <main class="cat-details-page">
-        <cat-svg v-bind="catTemplate" class="cat" />
-        <cat-name>{{ name }}</cat-name>
+        <cat-svg v-bind="catTemplate" class="cat" :editable="true" :update="updatePart" />
+        <cat-name class="cat-details-page__name">{{ name }}</cat-name>
         <cat-form class="cat-form--with-divider"
                   :cat-name="name"
                   :submit="onUpdateCatFormSubmit"
@@ -24,6 +24,11 @@
     export default {
         name: 'cat-details-page',
         components: { CatSvg, CatForm, CatName, MdInput },
+        head() {
+            return {
+                title: `Catinar - ${this.$store.state.catName}`,
+            };
+        },
         fetch({ store, params }) {
             return store.dispatch('updateCatById', params.id)
         },
@@ -60,16 +65,25 @@
 
                 console.log('show a success toast and redirect to home page');
             },
+            updatePart(part) {
+                this.$store.dispatch('updateCatTemplate', part);
+            },
         },
     };
 </script>
 
 <style lang="scss">
+    @import '~@/assets/scss/typography';
+
     .cat-details-page {
         text-align: center;
 
         .cat {
             max-width: 400px;
         }
+    }
+
+    .cat-details-page__name {
+        @include font-headline;
     }
 </style>

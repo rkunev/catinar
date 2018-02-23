@@ -32,6 +32,8 @@
             };
         },
         fetch({ store }) {
+            store.dispatch('updateAppBarTitle', 'Catinar');
+
             return Promise.all([
                 store.dispatch('updateCats'),
                 store.dispatch('updateCatsTotal'),
