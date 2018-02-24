@@ -3,11 +3,11 @@ import { mapFirebaseCollectionToArray } from '@/services/utils';
 
 const catsPath = 'users/me/cats';
 
-export const createCat = cat => create('users/me/cats', cat);
+export const createCat = ({ name, parts }) => create('users/me/cats', { name: name.slice(0, 25), parts });
 
 export const getCat = id => get(`users/me/cats/${id}`);
 
-export const updateCat = (id, cat) => put(`users/me/cats/${id}`, cat);
+export const updateCat = (id, { name, parts }) => put(`users/me/cats/${id}`, { name: name.slice(0, 25), parts });
 
 export const getAllCats = () => get(`users/me/cats`);
 

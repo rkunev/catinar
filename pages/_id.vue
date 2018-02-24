@@ -83,5 +83,12 @@
 
     .cat-details-page__name {
         @include font-headline;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 400px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        white-space: nowrap;
     }
 </style>
