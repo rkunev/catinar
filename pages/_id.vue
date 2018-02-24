@@ -1,18 +1,17 @@
 <template>
     <main class="cat-details-page">
-        <cat-svg v-bind="catTemplate" class="cat" :editable="true" :update="updatePart" />
+        <cat-svg v-bind="catTemplate" class="cat" :editable="true" :update="updateCatTemplate" />
         <cat-name class="cat-details-page__name">{{ name }}</cat-name>
-        <cat-form class="cat-form--with-divider"
-                  :cat-name="name"
+        <cat-form :cat-name="name"
                   :submit="onUpdateCatFormSubmit"
-                  :randomize="randomizeCat">
+                  :randomize="randomizeCatTemplate">
             <md-input v-model="name" label="Cat Name" />
         </cat-form>
     </main>
 </template>
 
 <script>
-    import { mapState } from 'vuex';
+    import { mapState, mapActions } from 'vuex';
 
     import CatSvg from '@/components/CatSvg';
     import CatForm from '@/components/CatForm';
@@ -30,7 +29,7 @@
             };
         },
         fetch({ store, params }) {
-            return store.dispatch('updateCatById', params.id)
+            return store.dispatch('updateCatById', params.id);
         },
         data() {
             return {
@@ -49,9 +48,7 @@
             },
         },
         methods: {
-            randomizeCat() {
-                this.$store.dispatch('randomizeCatTemplate');
-            },
+            ...mapActions(['randomizeCatTemplate', 'updateCatTemplate']),
             async onUpdateCatFormSubmit() {
                 this.isSavingDisabled = true;
 
@@ -61,12 +58,13 @@
                 });
 
                 this.isSavingDisabled = false;
-                this.$router.push('/');
+                this.$store.dispatch('toggleToast', 'Cat updated');
 
-                console.log('show a success toast and redirect to home page');
-            },
-            updatePart(part) {
-                this.$store.dispatch('updateCatTemplate', part);
+                setTimeout(() => {
+                    this.$store.dispatch('toggleToast', '');
+                }, 1500);
+
+                this.$router.push('/');
             },
         },
     };

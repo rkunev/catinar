@@ -70,7 +70,7 @@
         right: 0;
         top: 0;
         background-color: #fff;
-        min-width: 168px;
+        min-width: 180px;
         z-index: 11;
         border-radius: 2px;
         padding: 8px 0;
@@ -138,9 +138,9 @@
                 font-size: 16px;
                 line-height: $mobile-height;
                 height: $mobile-height;
-                padding: 0 0 0 16px;
 
                 > span {
+                    padding: 0 0 0 16px;
                     min-height: $mobile-height;
                 }
             }

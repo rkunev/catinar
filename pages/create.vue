@@ -1,18 +1,17 @@
 <template>
     <main class="create-cat-page">
-        <cat-svg class="cat" :editable="true" v-bind="catTemplate" :update="updatePart" />
+        <cat-svg class="cat" :editable="true" v-bind="catTemplate" :update="updateCatTemplate" />
         <span class="capture-chrome-focus">&nbsp;</span>
-        <cat-form class="cat-form--with-divider"
-                  :is-saving-disabled="isSavingDisabled || !name.length"
+        <cat-form :is-saving-disabled="isSavingDisabled || !name.length"
                   :submit="onCreateCatFormSubmit"
-                  :randomize="randomizeCat">
+                  :randomize="randomizeCatTemplate">
             <md-input v-model="name" label="Cat Name" />
         </cat-form>
     </main>
 </template>
 
 <script>
-    import { mapState } from 'vuex';
+    import { mapState, mapActions } from 'vuex';
 
     import CatSvg from '@/components/CatSvg';
     import CatForm from '@/components/CatForm';
@@ -53,6 +52,7 @@
             this.$store.dispatch('resetCatName');
         },
         methods: {
+            ...mapActions(['randomizeCatTemplate', 'updateCatTemplate']),
             async onCreateCatFormSubmit() {
                 this.isSavingDisabled = true;
 
@@ -64,13 +64,11 @@
                 this.isSavingDisabled = false;
                 this.$router.push('/');
 
-                console.log('show a success toast and redirect to home page');
-            },
-            randomizeCat() {
-                this.$store.dispatch('randomizeCatTemplate');
-            },
-            updatePart(part) {
-                this.$store.dispatch('updateCatTemplate', part);
+                this.$store.dispatch('toggleToast', 'Cat saved');
+
+                setTimeout(() => {
+                    this.$store.dispatch('toggleToast', '');
+                }, 1500);
             },
         },
     };

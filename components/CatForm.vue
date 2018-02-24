@@ -24,6 +24,8 @@
         display: flex;
         align-items: baseline;
         flex-wrap: wrap;
+        margin-top: 16px;
+        border-top: 1px solid #ccc;
 
         > .md-input {
             margin-top: 32px;
@@ -38,11 +40,6 @@
                 margin-bottom: .5em;
             }
         }
-    }
-
-    .cat-form--with-divider {
-        margin-top: 16px;
-        border-top: 1px solid #ccc;
     }
 
     .cat-form__randomize {

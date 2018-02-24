@@ -6,6 +6,7 @@ import {
     UPDATE_CAT_TEMPLATE,
     UPDATE_PART_CAT_TEMPLATE,
     UPDATE_CAT_NAME,
+    TOGGLE_TOAST,
 } from './mutation-types';
 
 export default {
@@ -29,5 +30,8 @@ export default {
     },
     [UPDATE_CAT_NAME](state, name) {
         state.catName = name;
+    },
+    [TOGGLE_TOAST](state, toast) {
+        state.toast = toast;
     },
 };

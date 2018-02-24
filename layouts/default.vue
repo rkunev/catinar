@@ -2,24 +2,31 @@
     <div class="app-wrapper">
         <app-bar />
 
-        <div class="main-content-wrapper">
+        <div class="main-content-wrapper" :class="{ 'is-toast-visible': $store.state.toast }">
             <div class="main-content">
                 <nuxt />
-
                 <create-fab />
+                <app-footer />
             </div>
         </div>
+
+        <div class="floating-actions">
+            <md-toast />
+        </div>
+
     </div>
 </template>
 
 <script>
     import AppBar from '@/components/AppBar';
     import CreateFab from '@/components/CreateFab';
+    import MdToast from '@/components/MdToast';
+    import AppFooter from '@/components/AppFooter';
 
     export default {
         name: 'default-layout',
-        components: { AppBar, CreateFab },
-    }
+        components: { AppBar, CreateFab, MdToast, AppFooter },
+    };
 </script>
 
 <style lang="scss" src="~/assets/scss/_reset.scss"></style>
@@ -61,6 +68,10 @@
         }
     }
 
+    .floating-actions {
+        position: relative;
+    }
+
     $page-enter-animation-duration: .4s;
     $page-leave-animation-duration: .2s;
 
@@ -69,7 +80,7 @@
     }
 
     .home-page.page-leave-active ~ .fab {
-      animation: fab-out cubic-bezier(.4, 0, .2, 1) $page-leave-animation-duration;
+        animation: fab-out cubic-bezier(.4, 0, .2, 1) $page-leave-animation-duration;
     }
 
     main:not(.home-page) ~ .fab {
@@ -77,10 +88,12 @@
         pointer-events: none;
     }
 
+    .page-enter-active ~ .app-footer,
     .page-enter-active {
       animation: $page-enter-animation-duration cubic-bezier(.4, 0, .2, 1) page-in;
     }
 
+    .page-leave-active ~ .app-footer,
     .page-leave-active {
       animation: $page-leave-animation-duration cubic-bezier(.4, 0, .2, 1) page-out;
     }

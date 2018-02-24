@@ -6,6 +6,7 @@ import {
     UPDATE_CAT_TEMPLATE,
     UPDATE_PART_CAT_TEMPLATE,
     UPDATE_CAT_NAME,
+    TOGGLE_TOAST,
 } from './mutation-types';
 
 import { getCats, getCatsCount, getCat } from '@/services/catApi';
@@ -43,9 +44,13 @@ export default {
             dispatch('resetCatName');
         } else if (route.name === 'id') {
             dispatch('updateCatById', route.params.id);
+        } else if (route.name === 'terms-of-service') {
+            // noop
         } else {
-            console.warn('Unknown route, bailing out from refresh', route.name);
+            console.log('Unknown route, bailing out from refresh', route.name);
         }
+
+        window.scrollTo(0, 0);
     },
     updateCatTemplate({ commit, state }, part) {
         const availableColors = getPermittedColorsForPart({
@@ -77,5 +82,8 @@ export default {
     },
     updateCatName({ commit }, name) {
         commit(UPDATE_CAT_NAME, name);
+    },
+    toggleToast({ commit }, toast) {
+        commit(TOGGLE_TOAST, toast);
     },
 };

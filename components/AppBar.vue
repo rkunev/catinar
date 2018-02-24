@@ -32,6 +32,7 @@
                     { id: 1, disabled: true, text: 'Settings' },
                     { id: 2, disabled: false, text: 'About' }, // (show a modal with the version number, built with and author)
                     { id: 3, disabled: false, text: 'Send Feedback' }, // (link to github.com/rkunev/catinar/issues)
+                    { id: 4, disabled: false, text: 'Terms of service' },
                 ],
             };
         },
@@ -39,9 +40,19 @@
             ...mapState(['appBarTitle']),
         },
         methods: {
-            onAction({ id }) {
+            async onAction({ id }) {
                 if (id === 0) {
-                    this.$store.dispatch('refreshScreen', this.$route);
+                    await this.$store.dispatch('refreshScreen', this.$route);
+
+                    this.$store.dispatch('toggleToast', 'Refresh successful');
+
+                    setTimeout(() => {
+                        this.$store.dispatch('toggleToast', '');
+                    }, 1500);
+                } else if (id === 3) {
+                    window.open('https://github.com/rkunev/catinar/issues', '_blank');
+                } else if (id === 4) {
+                    this.$router.push('/terms-of-service');
                 }
             },
             scrollToTop() {
