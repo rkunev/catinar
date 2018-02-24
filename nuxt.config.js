@@ -1,3 +1,5 @@
+const pkg = require('./package.json');
+
 module.exports = {
     head: {
         title: 'Catinar',
@@ -20,4 +22,8 @@ module.exports = {
     plugins: [
         { src: '~/plugins/waves.js', ssr: false },
     ],
+
+    env: {
+        version: pkg.version,
+    }
 };

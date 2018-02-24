@@ -10,7 +10,7 @@
         name: 'app-footer',
         data() {
             return {
-                version: 'CatinarApp 2018, v1.0.0'
+                version: `CatinarApp 2018, v${process.env.version}`,
             };
         },
     };
