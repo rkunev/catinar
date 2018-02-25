@@ -14,8 +14,6 @@ module.exports = {
         }
     },
 
-    // extractCSS true, move axios to vendor bundle
-
     loading: { color: '#16274a' },
     transition: 'page',
 
