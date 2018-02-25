@@ -9,8 +9,6 @@ export const getCat = id => get(catsPath + '/' + id);
 
 export const updateCat = (id, { name, parts }) => put(catsPath + '/' + id, { name: name.slice(0, 25), parts });
 
-export const getAllCats = () => get(catsPath);
-
 export const getCatsCount = () => get(catsPath, { shallow: true }).then(cats => Object.keys(cats).length);
 
 export const getCats = (config = {}) => {
