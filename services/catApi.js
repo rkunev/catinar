@@ -3,15 +3,15 @@ import { mapFirebaseCollectionToArray } from '@/services/utils';
 
 const catsPath = 'users/me/cats';
 
-export const createCat = ({ name, parts }) => create('users/me/cats', { name: name.slice(0, 25), parts });
+export const createCat = ({ name, parts }) => create(catsPath, { name: name.slice(0, 25), parts });
 
-export const getCat = id => get(`users/me/cats/${id}`);
+export const getCat = id => get(catsPath + '/' + id);
 
-export const updateCat = (id, { name, parts }) => put(`users/me/cats/${id}`, { name: name.slice(0, 25), parts });
+export const updateCat = (id, { name, parts }) => put(catsPath + '/' + id, { name: name.slice(0, 25), parts });
 
-export const getAllCats = () => get(`users/me/cats`);
+export const getAllCats = () => get(catsPath);
 
-export const getCatsCount = () => get(`users/me/cats`, { shallow: true }).then(cats => Object.keys(cats).length);
+export const getCatsCount = () => get(catsPath, { shallow: true }).then(cats => Object.keys(cats).length);
 
 export const getCats = (config = {}) => {
     const pageSize = config.pageSize || 5;
@@ -19,7 +19,7 @@ export const getCats = (config = {}) => {
     const startAt = config.startAt ? `"${config.startAt}"` : null;
     const endAt = config.endAt ? `"${config.endAt}"` : null;
 
-    return get(`users/me/cats`, { orderBy: '"$key"', limitToFirst, endAt, startAt })
+    return get(catsPath, { orderBy: '"$key"', limitToFirst, endAt, startAt })
         .then(mapFirebaseCollectionToArray)
         .then(cats => {
             if (config.startAt || config.endAt) {
