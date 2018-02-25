@@ -76,6 +76,10 @@ export default {
     async updateCatById({ commit, dispatch }, id) {
         const cat = await getCat(id);
 
+        if (!cat) {
+            throw cat;
+        }
+
         commit(UPDATE_CAT_TEMPLATE, cat.parts);
         commit(UPDATE_CAT_NAME, cat.name);
         commit(UPDATE_APP_BAR_TITLE, `Catinar - ${cat.name}`);

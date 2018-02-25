@@ -13,7 +13,6 @@
         <div class="floating-actions">
             <md-toast />
         </div>
-
     </div>
 </template>
 

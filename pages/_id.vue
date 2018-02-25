@@ -28,8 +28,12 @@
                 title: `Catinar - ${this.$store.state.catName}`,
             };
         },
-        fetch({ store, params }) {
-            return store.dispatch('updateCatById', params.id);
+        async fetch({ store, params, redirect }) {
+            try {
+                await store.dispatch('updateCatById', params.id);
+            } catch (err) {
+                redirect('/four-oh-four');
+            }
         },
         data() {
             return {
