@@ -2,10 +2,6 @@ import axios from 'axios';
 
 const api = axios.create({
     baseURL: 'https://catinar-app.firebaseio.com',
-    // "Mixing querying parameters and ETag requests is not supported"
-    // headers: {
-    //     'X-Firebase-ETag': 'true'
-    // },
 });
 const suffix = '.json';
 
