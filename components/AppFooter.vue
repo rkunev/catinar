@@ -1,6 +1,7 @@
 <template>
     <footer class="app-footer" v-once>
         <p>{{ version }}</p>
+        With <span class="heart">♡&nbsp;</span>
         <a href="https://github.com/rkunev/catinar/issues" target="_blank">Send Feedback</a>
     </footer>
 </template>
@@ -33,6 +34,10 @@
 
         a {
             color: inherit;
+        }
+
+        .heart {
+            color: #111;
         }
     }
 </style>

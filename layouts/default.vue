@@ -60,6 +60,11 @@
             padding: 16px 32px;
         }
 
+        @media (max-width: 360px) {
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+
         main {
             @include shadow(2);
             background: #fff;
