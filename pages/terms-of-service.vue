@@ -1,5 +1,5 @@
 <template>
-    <div class="terms-of-service main-content--boxed" v-once>
+    <div class="terms-of-service main-content--boxed" v-pre>
         <h2>Catinar Terms of Service and Privacy Policy</h2>
 
         <h3>1. Terms</h3>
