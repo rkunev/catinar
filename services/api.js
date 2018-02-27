@@ -5,7 +5,7 @@ const api = axios.create({
 });
 const suffix = '.json';
 
-const unwrapData = r => r.data;
+const unwrapData = r => r.data ? r.data : {};
 
 export const create = (path, data = {}) => api.post(path + suffix, data).then(unwrapData);
 export const get = (path, params = {}) => api.get(path + suffix, { params }).then(unwrapData);
