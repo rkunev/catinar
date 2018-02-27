@@ -1,6 +1,6 @@
 <template>
     <main class="home-page">
-        <cat-list :cats="cats" :page-size="pageSize" :current-page="catListPage">
+        <cat-list v-if="cats.length" :cats="cats" :page-size="pageSize" :current-page="catListPage">
             <list-pagination v-if="hasPagination"
                              :on-page-change="changeCurrentPage"
                              :disabled="isPaginationDisabled"
@@ -8,18 +8,19 @@
                              :page-size="pageSize"
                              :current-page="catListPage" />
         </cat-list>
+        <home-empty-state v-else :cat-template="catTemplate" />
     </main>
 </template>
 
 <script>
-    import CatList from '@/components/CatList';
-    import ListPagination from '@/components/ListPagination';
     import { mapState } from 'vuex';
 
-    const pageSize = 5;
+    import CatList from '@/components/CatList';
+    import ListPagination from '@/components/ListPagination';
+    import HomeEmptyState from '@/components/HomeEmptyState';
 
     export default {
-        components: { CatList, ListPagination },
+        components: { CatList, ListPagination, HomeEmptyState },
         head() {
             return {
                 title: 'Catinar',
@@ -27,7 +28,7 @@
         },
         data() {
             return {
-                pageSize,
+                pageSize: 50,
                 isPaginationDisabled: false,
             };
         },
@@ -40,7 +41,7 @@
             ]);
         },
         computed: {
-            ...mapState(['cats', 'totalCats', 'catListPage']),
+            ...mapState(['cats', 'totalCats', 'catListPage', 'catTemplate']),
             hasPagination() {
                 return this.cats.length < this.totalCats;
             },
